@@ -1,0 +1,29 @@
+.
+├── HTML
+│   ├── cascades.css
+│   ├── html.txt
+│   └── javascript.js
+├── introduction.txt
+├── Linux
+│   ├── CLI
+│   │   ├── advanced.txt
+│   │   ├── basics.txt
+│   │   └── Commands
+│   ├── GUI
+│   │   ├── debian.txt
+│   │   ├── mint.txt
+│   │   ├── red_hat.txt
+│   │   └── ubuntu.txt
+│   └── operatingsys.txt
+└── SDLC
+    ├── agile.txt
+    ├── DevOps
+    │   ├── Dev.txt
+    │   └── Ops.txt
+    ├── sdlc.txt
+    └── Waterfall
+        ├── advantages.txt
+        └── phases.txt
+
+8 directories, 17 files
+

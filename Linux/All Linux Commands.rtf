@@ -1,0 +1,526 @@
+{\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang31 #!/bin/bash\par
+##############################################################################\par
+# SHORTCUTS and HISTORY\par
+##############################################################################\par
+\par
+CTRL+A  # move to beginning of line\par
+CTRL+B  # moves backward one character\par
+CTRL+C  # halts the current command\par
+CTRL+D  # deletes one character backward or logs out of current session, similar to exit\par
+CTRL+E  # moves to end of line\par
+CTRL+F  # moves forward one character\par
+CTRL+G  # aborts the current editing command and ring the terminal bell\par
+CTRL+H  # deletes one character under cursor (same as DELETE)\par
+CTRL+J  # same as RETURN\par
+CTRL+K  # deletes (kill) forward to end of line\par
+CTRL+L  # clears screen and redisplay the line\par
+CTRL+M  # same as RETURN\par
+CTRL+N  # next line in command history\par
+CTRL+O  # same as RETURN, then displays next line in history file\par
+CTRL+P  # previous line in command history\par
+CTRL+R  # searches backward\par
+CTRL+S  # searches forward\par
+CTRL+T  # transposes two characters\par
+CTRL+U  # kills backward from point to the beginning of line\par
+CTRL+V  # makes the next character typed verbatim\par
+CTRL+W  # kills the word behind the cursor\par
+CTRL+X  # lists the possible filename completions of the current word\par
+CTRL+Y  # retrieves (yank) last item killed\par
+CTRL+Z  # stops the current command, resume with fg in the foreground or bg in the background\par
+\par
+ALT+B   # moves backward one word\par
+ALT+D   # deletes next word\par
+ALT+F   # moves forward one word\par
+ALT+H   # deletes one character backward\par
+ALT+T   # transposes two words\par
+ALT+.   # pastes last word from the last command. Pressing it repeatedly traverses through command history.\par
+ALT+U   # capitalizes every character from the current cursor position to the end of the word\par
+ALT+L   # uncapitalizes every character from the current cursor position to the end of the word\par
+ALT+C   # capitalizes the letter under the cursor. The cursor then moves to the end of the word.\par
+ALT+R   # reverts any changes to a command you\rquote ve pulled from your history if you\rquote ve edited it.\par
+\par
+BACKSPACE  # deletes one character backward\par
+DELETE     # deletes one character under cursor\par
+\par
+history   # shows command line history\par
+!!        # repeats the last command\par
+!<n>      # refers to command line 'n'\par
+!<string> # refers to command starting with 'string'\par
+\par
+exit      # logs out of current session\par
+\par
+\par
+##############################################################################\par
+# BASH BASICS\par
+##############################################################################\par
+\par
+env                 # displays all environment variables\par
+\par
+echo $SHELL         # displays the shell you're using\par
+echo $BASH_VERSION  # displays bash version\par
+\par
+bash                # if you want to use bash (type exit to go back to your previously opened shell)\par
+whereis bash        # locates the binary, source and manual-page for a command\par
+which bash          # finds out which program is executed as 'bash' (default: /bin/bash, can change across environments)\par
+\par
+clear               # clears content on window (hide displayed lines)\par
+\par
+\par
+##############################################################################\par
+# FILE COMMANDS\par
+##############################################################################\par
+\par
+\par
+ls                            # lists your files in current directory, ls <dir> to print files in a specific directory\par
+ls -l                         # lists your files in 'long format', which contains the exact size of the file, who owns the file and who has the right to look at it, and when it was last modified\par
+ls -a                         # lists all files in 'long format', including hidden files (name beginning with '.')\par
+ln -s <filename> <link>       # creates symbolic link to file\par
+touch <filename>              # creates or updates (edit) your file\par
+cat <filename>                # prints file raw content (will not be interpreted)\par
+any_command > <filename>      # '>' is used to perform redirections, it will set any_command's stdout to file instead of "real stdout" (generally /dev/stdout)\par
+more <filename>               # shows the first part of a file (move with space and type q to quit)\par
+head <filename>               # outputs the first lines of file (default: 10 lines)\par
+tail <filename>               # outputs the last lines of file (useful with -f option) (default: 10 lines)\par
+vim <filename>                # opens a file in VIM (VI iMproved) text editor, will create it if it doesn't exist\par
+mv <filename1> <dest>         # moves a file to destination, behavior will change based on 'dest' type (dir: file is placed into dir; file: file will replace dest (tip: useful for renaming))\par
+cp <filename1> <dest>         # copies a file\par
+rm <filename>                 # removes a file\par
+find . -name <name> <type>    # searches for a file or a directory in the current directory and all its sub-directories by its name\par
+diff <filename1> <filename2>  # compares files, and shows where they differ\par
+wc <filename>                 # tells you how many lines, words and characters there are in a file. Use -lwc (lines, word, character) to ouput only 1 of those informations\par
+sort <filename>               # sorts the contents of a text file line by line in alphabetical order, use -n for numeric sort and -r for reversing order.\par
+sort -t -k <filename>         # sorts the contents on specific sort key field starting from 1, using the field separator t.\par
+chmod -options <filename>     # lets you change the read, write, and execute permissions on your files (more infos: SUID, GUID)\par
+gzip <filename>               # compresses files using gzip algorithm\par
+gunzip <filename>             # uncompresses files compressed by gzip\par
+gzcat <filename>              # lets you look at gzipped file without actually having to gunzip it\par
+lpr <filename>                # prints the file\par
+lpq                           # checks out the printer queue\par
+lprm <jobnumber>              # removes something from the printer queue\par
+genscript                     # converts plain text files into postscript for printing and gives you some options for formatting\par
+dvips <filename>              # prints .dvi files (i.e. files produced by LaTeX)\par
+grep <pattern> <filenames>    # looks for the string in the files\par
+grep -r <pattern> <dir>       # search recursively for pattern in directory\par
+head -n file_name | tail +n   # Print nth line from file.\par
+head -y lines.txt | tail +x   # want to display all the lines from x to y. This includes the xth and yth lines.\par
+\par
+\par
+##############################################################################\par
+# DIRECTORY COMMANDS\par
+##############################################################################\par
+\par
+\par
+mkdir <dirname>               # makes a new directory\par
+rmdir <dirname>               # remove an empty directory\par
+rmdir -rf <dirname>           # remove a non-empty directory\par
+mv <dir1> <dir2>              # rename a directory from <dir1> to <dir2>\par
+cd                            # changes to home\par
+cd ..                         # changes to the parent directory\par
+cd <dirname>                  # changes directory\par
+cp -r <dir1> <dir2>           # copy <dir1> into <dir2> including sub-directories\par
+pwd                           # tells you where you currently are\par
+cd ~                          # changes to home.\par
+\par
+##############################################################################\par
+# SSH, SYSTEM INFO & NETWORK COMMANDS\par
+##############################################################################\par
+\par
+\par
+ssh user@host            # connects to host as user\par
+ssh -p <port> user@host  # connects to host on specified port as user\par
+ssh-copy-id user@host    # adds your ssh key to host for user to enable a keyed or passwordless login\par
+\par
+whoami                   # returns your username\par
+passwd                   # lets you change your password\par
+quota -v                 # shows what your disk quota is\par
+date                     # shows the current date and time\par
+cal                      # shows the month's calendar\par
+uptime                   # shows current uptime\par
+w                        # displays whois online\par
+finger <user>            # displays information about user\par
+uname -a                 # shows kernel information\par
+man <command>            # shows the manual for specified command\par
+df                       # shows disk usage\par
+du <filename>            # shows the disk usage of the files and directories in filename (du -s give only a total)\par
+last <yourUsername>      # lists your last logins\par
+ps -u yourusername       # lists your processes\par
+kill <PID>               # kills the processes with the ID you gave\par
+killall <processname>    # kill all processes with the name\par
+top                      # displays your currently active processes\par
+lsof                     # lists open files\par
+bg                       # lists stopped or background jobs ; resume a stopped job in the background\par
+fg                       # brings the most recent job in the foreground\par
+fg <job>                 # brings job to the foreground\par
+\par
+ping <host>              # pings host and outputs results\par
+whois <domain>           # gets whois information for domain\par
+dig <domain>             # gets DNS information for domain\par
+dig -x <host>            # reverses lookup host\par
+wget <file>              # downloads file\par
+\par
+\par
+##############################################################################\par
+# VARIABLES\par
+##############################################################################\par
+\par
+\par
+varname=value                # defines a variable\par
+varname=value command        # defines a variable to be in the environment of a particular subprocess\par
+echo $varname                # checks a variable's value\par
+echo $$                      # prints process ID of the current shell\par
+echo $!                      # prints process ID of the most recently invoked background job\par
+echo $?                      # displays the exit status of the last command\par
+read <varname>               # reads a string from the input and assigns it to a variable \par
+let <varname> = <equation>   # performs mathematical calculation using operators like +, -, *, /, %\par
+export VARNAME=value         # defines an environment variable (will be available in subprocesses)\par
+\par
+array[0]=valA                # how to define an array\par
+array[1]=valB\par
+array[2]=valC\par
+array=([2]=valC [0]=valA [1]=valB)  # another way\par
+array=(valA valB valC)              # and another\par
+\par
+$\{array[i]\}                  # displays array's value for this index. If no index is supplied, array element 0 is assumed\par
+$\{#array[i]\}                 # to find out the length of any element in the array\par
+$\{#array[@]\}                 # to find out how many values there are in the array\par
+\par
+declare -a                   # the variables are treated as arrays\par
+declare -f                   # uses function names only\par
+declare -F                   # displays function names without definitions\par
+declare -i                   # the variables are treated as integers\par
+declare -r                   # makes the variables read-only\par
+declare -x                   # marks the variables for export via the environment\par
+\par
+$\{varname:-word\}             # if varname exists and isn't null, return its value; otherwise return word\par
+$\{varname:=word\}             # if varname exists and isn't null, return its value; otherwise set it word and then return its value\par
+$\{varname:?message\}          # if varname exists and isn't null, return its value; otherwise print varname, followed by message and abort the current command or script\par
+$\{varname:+word\}             # if varname exists and isn't null, return word; otherwise return null\par
+$\{varname:offset:length\}     # performs substring expansion. It returns the substring of $varname starting at offset and up to length characters\par
+\par
+$\{variable#pattern\}          # if the pattern matches the beginning of the variable's value, delete the shortest part that matches and return the rest\par
+$\{variable##pattern\}         # if the pattern matches the beginning of the variable's value, delete the longest part that matches and return the rest\par
+$\{variable%pattern\}          # if the pattern matches the end of the variable's value, delete the shortest part that matches and return the rest\par
+$\{variable%%pattern\}         # if the pattern matches the end of the variable's value, delete the longest part that matches and return the rest\par
+$\{variable/pattern/string\}   # the longest match to pattern in variable is replaced by string. Only the first match is replaced\par
+$\{variable//pattern/string\}  # the longest match to pattern in variable is replaced by string. All matches are replaced\par
+\par
+$\{#varname\}                  # returns the length of the value of the variable as a character string\par
+\par
+*(patternlist)               # matches zero or more occurrences of the given patterns\par
++(patternlist)               # matches one or more occurrences of the given patterns\par
+?(patternlist)               # matches zero or one occurrence of the given patterns\par
+@(patternlist)               # matches exactly one of the given patterns\par
+!(patternlist)               # matches anything except one of the given patterns\par
+\par
+$(UNIX command)              # command substitution: runs the command and returns standard output\par
+\par
+\par
+##############################################################################\par
+# FUNCTIONS\par
+##############################################################################\par
+\par
+\par
+# The function refers to passed arguments by position (as if they were positional parameters), that is, $1, $2, and so forth.\par
+# $@ is equal to "$1" "$2"... "$N", where N is the number of positional parameters. $# holds the number of positional parameters.\par
+\par
+\par
+function functname() \{\par
+  shell commands\par
+\}\par
+\par
+unset -f functname  # deletes a function definition\par
+declare -f          # displays all defined functions in your login session\par
+\par
+\par
+##############################################################################\par
+# FLOW CONTROLS\par
+##############################################################################\par
+\par
+\par
+statement1 && statement2  # and operator\par
+statement1 || statement2  # or operator\par
+\par
+-a                        # and operator inside a test conditional expression\par
+-o                        # or operator inside a test conditional expression\par
+\par
+# STRINGS\par
+\par
+str1 == str2               # str1 matches str2\par
+str1 != str2               # str1 does not match str2\par
+str1 < str2                # str1 is less than str2 (alphabetically)\par
+str1 > str2                # str1 is greater than str2 (alphabetically)\par
+str1 \\> str2               # str1 is sorted after str2\par
+str1 \\< str2               # str1 is sorted before str2\par
+-n str1                    # str1 is not null (has length greater than 0)\par
+-z str1                    # str1 is null (has length 0)\par
+\par
+# FILES\par
+\par
+-a file                   # file exists or its compilation is successful\par
+-d file                   # file exists and is a directory\par
+-e file                   # file exists; same -a\par
+-f file                   # file exists and is a regular file (i.e., not a directory or other special type of file)\par
+-r file                   # you have read permission\par
+-s file                   # file exists and is not empty\par
+-w file                   # your have write permission\par
+-x file                   # you have execute permission on file, or directory search permission if it is a directory\par
+-N file                   # file was modified since it was last read\par
+-O file                   # you own file\par
+-G file                   # file's group ID matches yours (or one of yours, if you are in multiple groups)\par
+file1 -nt file2           # file1 is newer than file2\par
+file1 -ot file2           # file1 is older than file2\par
+\par
+# NUMBERS\par
+\par
+-lt                       # less than\par
+-le                       # less than or equal\par
+-eq                       # equal\par
+-ge                       # greater than or equal\par
+-gt                       # greater than\par
+-ne                       # not equal\par
+\par
+if condition\par
+then\par
+  statements\par
+[elif condition\par
+  then statements...]\par
+[else\par
+  statements]\par
+fi\par
+\par
+for x in \{1..10\}\par
+do\par
+  statements\par
+done\par
+\par
+for name [in list]\par
+do\par
+  statements that can use $name\par
+done\par
+\par
+for (( initialisation ; ending condition ; update ))\par
+do\par
+  statements...\par
+done\par
+\par
+case expression in\par
+  pattern1 )\par
+    statements ;;\par
+  pattern2 )\par
+    statements ;;\par
+esac\par
+\par
+select name [in list]\par
+do\par
+  statements that can use $name\par
+done\par
+\par
+while condition; do\par
+  statements\par
+done\par
+\par
+until condition; do\par
+  statements\par
+done\par
+\par
+##############################################################################\par
+# COMMAND-LINE PROCESSING CYCLE\par
+##############################################################################\par
+\par
+\par
+# The default order for command lookup is functions, followed by built-ins, with scripts and executables last.\par
+# There are three built-ins that you can use to override this order: `command`, `builtin` and `enable`.\par
+\par
+command  # removes alias and function lookup. Only built-ins and commands found in the search path are executed\par
+builtin  # looks up only built-in commands, ignoring functions and commands found in PATH\par
+enable   # enables and disables shell built-ins\par
+\par
+eval     # takes arguments and run them through the command-line processing steps all over again\par
+\par
+\par
+##############################################################################\par
+# INPUT/OUTPUT REDIRECTORS\par
+##############################################################################\par
+\par
+\par
+cmd1|cmd2  # pipe; takes standard output of cmd1 as standard input to cmd2\par
+< file     # takes standard input from file\par
+> file     # directs standard output to file\par
+>> file    # directs standard output to file; append to file if it already exists\par
+>|file     # forces standard output to file even if noclobber is set\par
+n>|file    # forces output to file from file descriptor n even if noclobber is set\par
+<> file    # uses file as both standard input and standard output\par
+n<>file    # uses file as both input and output for file descriptor n\par
+n>file     # directs file descriptor n to file\par
+n<file     # takes file descriptor n from file\par
+n>>file    # directs file description n to file; append to file if it already exists\par
+n>&        # duplicates standard output to file descriptor n\par
+n<&        # duplicates standard input from file descriptor n\par
+n>&m       # file descriptor n is made to be a copy of the output file descriptor\par
+n<&m       # file descriptor n is made to be a copy of the input file descriptor\par
+&>file     # directs standard output and standard error to file\par
+<&-        # closes the standard input\par
+>&-        # closes the standard output\par
+n>&-       # closes the ouput from file descriptor n\par
+n<&-       # closes the input from file descripor n\par
+\par
+\par
+##############################################################################\par
+# PROCESS HANDLING\par
+##############################################################################\par
+\par
+\par
+# To suspend a job, type CTRL+Z while it is running. You can also suspend a job with CTRL+Y.\par
+# This is slightly different from CTRL+Z in that the process is only stopped when it attempts to read input from terminal.\par
+# Of course, to interrupt a job, type CTRL+C.\par
+\par
+myCommand &  # runs job in the background and prompts back the shell\par
+\par
+jobs         # lists all jobs (use with -l to see associated PID)\par
+\par
+fg           # brings a background job into the foreground\par
+fg %+        # brings most recently invoked background job\par
+fg %-        # brings second most recently invoked background job\par
+fg %N        # brings job number N\par
+fg %string   # brings job whose command begins with string\par
+fg %?string  # brings job whose command contains string\par
+\par
+kill -l               # returns a list of all signals on the system, by name and number\par
+kill PID              # terminates process with specified PID\par
+kill -s SIGKILL 4500  # sends a signal to force or terminate the process\par
+kill -15 913          # Ending PID 913 process with signal 15 (TERM)\par
+kill %1               # Where %1 is the number of job as read from 'jobs' command.\par
+\par
+ps           # prints a line of information about the current running login shell and any processes running under it\par
+ps -a        # selects all processes with a tty except session leaders\par
+\par
+trap cmd sig1 sig2  # executes a command when a signal is received by the script\par
+trap "" sig1 sig2   # ignores that signals\par
+trap - sig1 sig2    # resets the action taken when the signal is received to the default\par
+\par
+disown <PID|JID>    # removes the process from the list of jobs\par
+\par
+wait                # waits until all background jobs have finished\par
+\par
+\par
+##############################################################################\par
+# TIPS & TRICKS\par
+##############################################################################\par
+\par
+\par
+# set an alias\par
+cd; nano .bash_profile\par
+> alias gentlenode='ssh admin@gentlenode.com -p 3404'  # add your alias in .bash_profile\par
+\par
+# to quickly go to a specific directory\par
+cd; nano .bashrc\par
+> shopt -s cdable_vars\par
+> export websites="/Users/mac/Documents/websites"\par
+\par
+source .bashrc\par
+cd $websites\par
+\par
+\par
+##############################################################################\par
+# DEBUGGING SHELL PROGRAMS\par
+##############################################################################\par
+\par
+\par
+bash -n scriptname  # don't run commands; check for syntax errors only\par
+set -o noexec       # alternative (set option in script)\par
+\par
+bash -v scriptname  # echo commands before running them\par
+set -o verbose      # alternative (set option in script)\par
+\par
+bash -x scriptname  # echo commands after command-line processing\par
+set -o xtrace       # alternative (set option in script)\par
+\par
+trap 'echo $varname' EXIT  # useful when you want to print out the values of variables at the point that your script exits\par
+\par
+function errtrap \{\par
+  es=$?\par
+  echo "ERROR line $1: Command exited with status $es."\par
+\}\par
+\par
+trap 'errtrap $LINENO' ERR  # is run whenever a command in the surrounding script or function exits with non-zero status\par
+\par
+function dbgtrap \{\par
+  echo "badvar is $badvar"\par
+\}\par
+\par
+trap dbgtrap DEBUG  # causes the trap code to be executed before every statement in a function or script\par
+# ...section of code in which the problem occurs...\par
+trap - DEBUG  # turn off the DEBUG trap\par
+\par
+function returntrap \{\par
+  echo "A return occurred"\par
+\}\par
+\par
+trap returntrap RETURN  # is executed each time a shell function or a script executed with the . or source commands finishes executing\par
+\par
+##############################################################################\par
+# COLORS AND BACKGROUNDS \par
+##############################################################################\par
+\par
+# Reset\par
+Color_Off='\\033[0m' # Text Reset\par
+\par
+# Regular Colors\par
+Black='\\033[0;30m'  # Black\par
+Red='\\033[0;31m'    # Red\par
+Green='\\033[0;32m'  # Green\par
+Yellow='\\033[0;33m' # Yellow\par
+Blue='\\033[0;34m'   # Blue\par
+Purple='\\033[0;35m' # Purple\par
+Cyan='\\033[0;36m'   # Cyan\par
+White='\\033[0;97m'  # White\par
+\par
+# Additional colors\par
+LGrey='\\033[0;37m'  # Ligth Gray\par
+DGrey='\\033[0;90m'  # Dark Gray\par
+LRed='\\033[0;91m'   # Ligth Red\par
+LGreen='\\033[0;92m' # Ligth Green\par
+LYellow='\\033[0;93m'# Ligth Yellow\par
+LBlue='\\033[0;94m'  # Ligth Blue\par
+LPurple='\\033[0;95m'# Light Purple\par
+LCyan='\\033[0;96m'  # Ligth Cyan\par
+\par
+\par
+# Bold\par
+BBlack='\\033[1;30m' # Black\par
+BRed='\\033[1;31m'   # Red\par
+BGreen='\\033[1;32m' # Green\par
+BYellow='\\033[1;33m'# Yellow\par
+BBlue='\\033[1;34m'  # Blue\par
+BPurple='\\033[1;35m'# Purple\par
+BCyan='\\033[1;36m'  # Cyan\par
+BWhite='\\033[1;37m' # White\par
+\par
+# Underline\par
+UBlack='\\033[4;30m' # Black\par
+URed='\\033[4;31m'   # Red\par
+UGreen='\\033[4;32m' # Green\par
+UYellow='\\033[4;33m'# Yellow\par
+UBlue='\\033[4;34m'  # Blue\par
+UPurple='\\033[4;35m'# Purple\par
+UCyan='\\033[4;36m'  # Cyan\par
+UWhite='\\033[4;37m' # White\par
+\par
+# Background\par
+On_Black='\\033[40m' # Black\par
+On_Red='\\033[41m'   # Red\par
+On_Green='\\033[42m' # Green\par
+On_Yellow='\\033[43m'# Yellow\par
+On_Blue='\\033[44m'  # Blue\par
+On_Purple='\\033[45m'# Purple\par
+On_Cyan='\\033[46m'  # Cyan\par
+On_White='\\033[47m' # White\par
+\par
+# Example of usage\par
+echo -e "$\{Green\}This is GREEN text$\{Color_Off\} and normal text"\par
+echo -e "$\{Red\}$\{On_White\}This is Red test on White background$\{Color_Off\}" \par
+# option -e is mandatory, it enable interpretation of backslash escapes\par
+}
+ 

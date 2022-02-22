@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates an EC2 instance which enables SSH connection. 
+
+Resources:
+  LeonCFInstance: 
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-08e4e35cccc6189f4
+      InstanceType: t2.micro
+      KeyName: leon # keyname inizi giriniz
+      SecurityGroups:
+        - cfn-sec-group # konsoldan olusturmus oldugunuz security groupunuzun adini buraya giriniz
+      Tags:
+        - Key: Name
+          Value: leon-cf-instance # EC2 Instance inizin ismini belirleyiniz

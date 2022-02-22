@@ -1,0 +1,21 @@
+.
+├── history.txt
+├── HTML
+│   ├── cascades.css
+│   ├── html.txt
+│   └── javascript.js
+├── introduction.txt
+├── Linux
+│   ├── CLI
+│   │   ├── advanced.txt
+│   │   └── basics.txt
+│   ├── GUI
+│   │   ├── debian.txt
+│   │   ├── mint.txt
+│   │   ├── red_hat.txt
+│   │   └── ubuntu.txt
+│   └── operatingsys.txt
+└── tree.txt
+
+4 directories, 13 files
+
